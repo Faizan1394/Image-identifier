@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Item_Identifier</string>
+
+    <!-- Strings related to empty login fields-->
+    <string name="empty_username">Please enter your username</string>
+    <string name="empty_fullName">Please enter your Full Name</string>
+    <string name="empty_email">Please enter your email</string>
+    <string name="empty_password">Please enter a Password</string>
+    <!-- Strings related to invalid login fields-->
+    <string name="invalid_username">3 to 15 characters with any lower case character, digit or special symbol “_-”</string>
+    <string name="invalid_fullName">Alphabetical chars only</string>
+    <string name="invalid_email">This email is invalid</string>
+    <string name="invalid_password">Must contain at least 1 lowerCase, 1 upperCase, 1 Numeric, 1 special Character, at least 8 chars long</string>
+    <string name="username_taken">This username is taken already</string>
+    <string name="email_taken">This email is taken already</string>
+</resources>
