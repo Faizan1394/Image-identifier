@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class HomeActivity extends AppCompatActivity {
 
     private Button camButton;
@@ -28,6 +30,8 @@ public class HomeActivity extends AppCompatActivity {
         camButton = (Button) findViewById(R.id.cameraButton);
         logoutButton = (Button) findViewById(R.id.logoutButton);
         image = (ImageView) findViewById(R.id.picture);
+
+
 
         camButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
                                 Toast.makeText(HomeActivity.this, "Logging out", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
                                 startActivity(intent);
+                                FirebaseAuth.getInstance().signOut();
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -72,6 +77,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
         image.setImageBitmap(bitmap);
+
 
 
     }
