@@ -15,6 +15,10 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+
 public class HomeActivity extends AppCompatActivity {
 
     private Button camButton;
@@ -38,8 +42,11 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent,0);
+                try { startClient(bitmap); }
+                catch (Exception e) {}
             }
         });
+
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,14 +78,28 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    Bitmap bitmap;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+        bitmap = (Bitmap) data.getExtras().get("data");
         image.setImageBitmap(bitmap);
+    }
 
+    public void startClient(Bitmap bmp) throws Exception{
+        Socket socket = new Socket("localhost", 8080);
+        OutputStream outputStream = socket.getOutputStream();
 
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
 
+        outputStream.write(byteArray);
+        outputStream.write(stream.toByteArray());
+        outputStream.flush();
+
+        socket.close();
     }
 }
