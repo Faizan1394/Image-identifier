@@ -1,8 +1,8 @@
 package sample;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.auth.FirebaseAuth;
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,7 +32,7 @@ public class Main extends Application {
     Button regregisterButton;
 
     // Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
+//    private FirebaseAuth mFirebaseAuth;
 //    private FirebaseUser mFirebaseUser;
 
     @Override
@@ -234,7 +234,6 @@ public class Main extends Application {
 
         imgScene = new Scene(imagePane);
 
-//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 //        primaryStage.setScene(new Scene(root, 300, 275));
 
 //        final FirebaseDatabase database = FirebaseDatabase.getInstance();
