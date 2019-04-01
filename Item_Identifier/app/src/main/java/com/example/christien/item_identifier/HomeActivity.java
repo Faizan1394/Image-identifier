@@ -90,13 +90,22 @@ public class HomeActivity extends AppCompatActivity {
 
     public void startClient(Bitmap bmp) throws Exception{
         Socket socket = new Socket("localhost", 8080);
+        Log.d("CLIENT", "Socket Created");
+
         OutputStream outputStream = socket.getOutputStream();
+        Log.d("CLIENT", "Output stream connected");
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
+//        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+//        byte[] byteArray = stream.toByteArray();
+//
+//        outputStream.write(byteArray);
+//        outputStream.write(stream.toByteArray());
 
-        outputStream.write(byteArray);
+        byte[] size = ByteBuffer.allocate(64).putInt(stream.size()).array();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+        outputStream.write(size);
         outputStream.write(stream.toByteArray());
         outputStream.flush();
 
