@@ -8,7 +8,7 @@ from keras.layers import Dense
 from keras.preprocessing.image import ImageDataGenerator
 
 classifier = Sequential()
-imageTargetSize = 64
+imageTargetSize = 256
 
 #Convolution
 def convolution(i):
@@ -54,6 +54,8 @@ def dataAugmentation():
 	zoomRange = 0.2
 	numTrainImages = 3505
 	numTestImages = 165
+	numStepsPerEpoch = numTrainImages/32
+	numValidationSteps = numTestImages/32
 	numEpochs = 25
 	
 	trainDataGeneration = ImageDataGenerator(rescale = scale,shear_range = shearRange,
@@ -61,14 +63,21 @@ def dataAugmentation():
 	
 	testDataGeneration = ImageDataGenerator(rescale = scale)
 	
-	trainData = trainDataGeneration.flow_from_directory('dataset/training_set',target_size =(imageTargetSize,imageTargetSize),
-												   batch_size = 32,class_mode='categorical')
+	trainData = trainDataGeneration.flow_from_directory('dataset/training_set',
+													 target_size =(imageTargetSize,imageTargetSize),
+													 batch_size= 32,
+												     class_mode='categorical')
 	
-	testData = testDataGeneration.flow_from_directory('dataset/test_set',target_size =(imageTargetSize,imageTargetSize),
-												   batch_size = 32,class_mode='categorical')
+	testData = testDataGeneration.flow_from_directory('dataset/test_set',
+												   target_size =(imageTargetSize,imageTargetSize),
+												   batch_size= 32,
+												   class_mode='categorical')
 	
-	classifier.fit_generator(trainData,steps_per_epoch = numTrainImages,epochs=numEpochs,
-						  validation_steps = numTestImages,validation_data = testData);
+	classifier.fit_generator(trainData,
+						  steps_per_epoch = numStepsPerEpoch,
+						  epochs=numEpochs,
+						  validation_data = testData,
+						  validation_steps = numValidationSteps);
 
 
 def run():
