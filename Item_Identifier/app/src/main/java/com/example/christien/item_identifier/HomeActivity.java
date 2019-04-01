@@ -3,11 +3,13 @@ package com.example.christien.item_identifier;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -35,15 +38,18 @@ public class HomeActivity extends AppCompatActivity {
         logoutButton = (Button) findViewById(R.id.logoutButton);
         image = (ImageView) findViewById(R.id.picture);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
 
         camButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(HomeActivity.this, "Accessing Camera", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent,0);
-                try { startClient(bitmap); }
-                catch (Exception e) {}
+
             }
         });
 
@@ -86,10 +92,17 @@ public class HomeActivity extends AppCompatActivity {
 
         bitmap = (Bitmap) data.getExtras().get("data");
         image.setImageBitmap(bitmap);
+        try { startClient(bitmap); }
+        catch (Exception e) {e.printStackTrace();}
     }
 
     public void startClient(Bitmap bmp) throws Exception{
-        Socket socket = new Socket("localhost", 8080);
+
+
+        Toast.makeText(HomeActivity.this, "Inside now!!!!!", Toast.LENGTH_SHORT).show();
+
+
+        Socket socket = new Socket("10.150.4.80", 8080);
         Log.d("CLIENT", "Socket Created");
 
         OutputStream outputStream = socket.getOutputStream();
