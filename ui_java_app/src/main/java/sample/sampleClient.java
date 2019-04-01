@@ -11,7 +11,7 @@ public class sampleClient {
         Socket socket = new Socket("localhost", 8080);
         OutputStream outputStream = socket.getOutputStream();
 
-        BufferedImage image = ImageIO.read(new File("Client_IMG/images3.jpg"));
+        BufferedImage image = ImageIO.read(new File("src/test1.jpg"));
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "jpg", byteArrayOutputStream);

@@ -9,7 +9,7 @@ import java.nio.ByteBuffer;
 public class ServerThread extends Thread{
 	protected Socket socket;
 	InputStream inputStream;
-    String fileName = "test_sent";
+    String fileName = "test1";
 
 	public ServerThread(Socket socket) {
 		super();
@@ -31,7 +31,7 @@ public class ServerThread extends Thread{
 			inputStream.read(imageAr);
 
 			BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
-			ImageIO.write(image, "jpg", new File("Server_IMG/"+fileName+".jpg"));
+			ImageIO.write(image, "jpg", new File("src/"+fileName+".jpg"));
 
 		}
 		catch (Exception e) { e.printStackTrace(); }

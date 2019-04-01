@@ -168,8 +168,6 @@ public class Main extends Application {
         regGridPane.add(regloginButton, 1, 10);
 
         registerButton.setOnAction(e -> {
-//            gridPane.getChildren().clear();
-//            gridPane.add(emailText, 0, 0);
             showregisterPage(primaryStage, regScene);
         });
 
@@ -179,8 +177,6 @@ public class Main extends Application {
 
         StackPane loginPane = new StackPane(gridPane);
 
-        //Setting size for the pane
-//        loginPane.setMinSize(6000, 6000);
         loginPane.prefHeightProperty().bind(gridPane.widthProperty());
         loginPane.prefWidthProperty().bind(gridPane.heightProperty());
 
@@ -192,9 +188,6 @@ public class Main extends Application {
         loginPane.setPadding(new Insets(10, 10, 10, 10));
 
         StackPane regPane = new StackPane(regGridPane);
-
-        //Setting size for the pane
-//        regPane.setMinSize(6000, 6000);
 
         regPane.prefHeightProperty().bind(regPane.heightProperty());
         regPane.prefWidthProperty().bind(regPane.heightProperty());
@@ -234,8 +227,6 @@ public class Main extends Application {
 
         imgScene = new Scene(imagePane);
 
-//        primaryStage.setScene(new Scene(root, 300, 275));
-
 //        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference ref = database.getReference("https://console.firebase.google.com/project/itemidentifier-fb57d/database/itemidentifier-fb57d/data");
 
@@ -245,7 +236,8 @@ public class Main extends Application {
 //        mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
         showloginPage(primaryStage, loginScene);
-
+        // Sets stage to fullscreen at the start
+        primaryStage.setFullScreen(true);
         primaryStage.show();
 
 
@@ -255,18 +247,26 @@ public class Main extends Application {
 
         primaryStage.setTitle("Registration - Item Identifier");
         primaryStage.setScene(regScene);
+        // Sets stage to fullscreen at the start
+        primaryStage.setFullScreen(true);
+        primaryStage.show();
     }
 
     public static void showimagePage(Stage primaryStage, Scene imgScene) {
 
         primaryStage.setTitle("Image from Android - Item Identifier");
         primaryStage.setScene(imgScene);
+        primaryStage.setFullScreen(true);
+        primaryStage.show();
     }
 
     public static void showloginPage(Stage primaryStage, Scene loginScene) {
 
         primaryStage.setTitle("Login - Item Identifier");
         primaryStage.setScene(loginScene);
+        // Sets stage to fullscreen at the start
+        primaryStage.setFullScreen(true);
+        primaryStage.show();
     }
 
     public static boolean passwordMatch() {
