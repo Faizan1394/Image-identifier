@@ -19,23 +19,23 @@ public class MainController implements Initializable {
     }
 
     public void close(ActionEvent e) {
-        //TODO
-        // Close Socket
+        try {
+            LoginController.server.socket.close();
+        } catch (IOException exception ) {System.err.println("Unhandled IOException\n" + exception);}
 
-        System.exit(0);
+            System.exit(0);
     }
 
     public void logout(ActionEvent e) {
-        //TODO
-        // Close Socket
-
         try {
+            LoginController.server.socket.close();
+
             Stage primaryStage = Main.primaryStage;
             Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
             primaryStage.setScene(new Scene(root, 676, 460));
             primaryStage.setResizable(false);
             primaryStage.show();
 
-        } catch (Exception IOException) {System.err.println("Unhandled IOException");}
+        } catch (IOException exception) {System.err.println("Unhandled IOException\n" + exception);}
     }
 }

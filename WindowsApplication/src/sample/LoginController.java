@@ -19,6 +19,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+    public static Server server;
+
     @FXML
     private PasswordField loginPass;
 
@@ -54,7 +56,7 @@ public class LoginController implements Initializable {
             }
             if(found){
                 System.out.println("User Found");
-                Server server = new Server();
+                server = new Server();
 
                 //Set Scene
                 Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
