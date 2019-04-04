@@ -9,7 +9,6 @@ import java.nio.ByteBuffer;
 public class ServerThread extends Thread{
 	protected Socket socket;
 	InputStream inputStream;
-    String fileName = "test1";
 
 	public ServerThread(Socket socket) {
 		super();
@@ -23,16 +22,16 @@ public class ServerThread extends Thread{
 
 	public void run() {
 		try {
-			byte [] sizeArr = new byte [64];
-			inputStream.read(sizeArr);
-			int size = ByteBuffer.wrap(sizeArr).asIntBuffer().get();
+			DataInputStream input = new DataInputStream(inputStream);
 
-			byte[] imageAr = new byte[size];
-			inputStream.read(imageAr);
-
-			BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
-			ImageIO.write(image, "jpg", new File("src/"+fileName+".jpg"));
-
+			byte[] data;
+			int len= input.readInt();
+			data = new byte[len];
+			if (len > 0) {
+				input.readFully(data,0,data.length);
+			}
+			BufferedImage image = ImageIO.read(new ByteArrayInputStream(data));
+			ImageIO.write(image, "png", new File("src/readImage.png"));
 		}
 		catch (Exception e) { e.printStackTrace(); }
 	}

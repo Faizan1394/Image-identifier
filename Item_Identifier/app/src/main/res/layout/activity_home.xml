@@ -38,4 +38,5 @@
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/logoutButton"
         tools:layout_editor_absoluteX="0dp" />
+
 </android.support.constraint.ConstraintLayout>

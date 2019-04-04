@@ -3,6 +3,8 @@ package com.example.christien.item_identifier;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -85,42 +89,40 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     Bitmap bitmap;
+    private Uri path;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        bitmap = (Bitmap) data.getExtras().get("data");
-        image.setImageBitmap(bitmap);
-        try { startClient(bitmap); }
-        catch (Exception e) {e.printStackTrace();}
+        String ip = "10.150.35.239";
+        path= data.getData();
+
+        if(requestCode == 0 && resultCode==RESULT_OK){
+            Bundle extras = data.getExtras();
+            bitmap = (Bitmap) extras.get("data");
+            image.setImageBitmap(bitmap);
+            try {
+                startClient(bitmap,ip);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
-    public void startClient(Bitmap bmp) throws Exception{
+    public void startClient(Bitmap bmp,String ip) throws Exception{
+        Socket socket;
+        socket = new Socket(ip, 8080);
 
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 0, bos);
 
-        Toast.makeText(HomeActivity.this, "Inside now!!!!!", Toast.LENGTH_SHORT).show();
-
-
-        Socket socket = new Socket("10.150.4.80", 8080);
-        Log.d("CLIENT", "Socket Created");
-
-        OutputStream outputStream = socket.getOutputStream();
-        Log.d("CLIENT", "Output stream connected");
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//        byte[] byteArray = stream.toByteArray();
-//
-//        outputStream.write(byteArray);
-//        outputStream.write(stream.toByteArray());
-
-        byte[] size = ByteBuffer.allocate(64).putInt(stream.size()).array();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-
-        outputStream.write(size);
-        outputStream.write(stream.toByteArray());
-        outputStream.flush();
+        byte[] array = bos.toByteArray();
+        OutputStream out = socket.getOutputStream();
+        DataOutputStream dos = new DataOutputStream(out);
+        dos.writeInt(array.length);
+        dos.write(array, 0, array.length);
 
         socket.close();
     }
