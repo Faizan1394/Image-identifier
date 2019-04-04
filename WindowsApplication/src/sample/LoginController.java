@@ -55,19 +55,18 @@ public class LoginController implements Initializable {
             if(found){
                 System.out.println("User Found");
 
-                primaryStage = Main.primaryStage;
+                //Set Scene
                 Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+                primaryStage = Main.primaryStage;
+                primaryStage.setTitle("Image Identifier");
                 primaryStage.setScene(new Scene(root, 676, 460));
                 primaryStage.setResizable(false);
                 primaryStage.show();
 
+                Main.startServer();
             }
             else
                 System.out.println("User Not Found");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }
