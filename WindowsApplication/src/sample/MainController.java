@@ -13,14 +13,15 @@ import javafx.stage.Stage;
 
 
 public class MainController implements Initializable {
+    private Server server;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        server = new Server();
     }
 
     public void close(ActionEvent e) {
         try {
-            LoginController.server.socket.close();
+            server.socket.close();
         } catch (IOException exception ) {System.err.println("Unhandled IOException\n" + exception);}
 
             System.exit(0);
@@ -28,7 +29,7 @@ public class MainController implements Initializable {
 
     public void logout(ActionEvent e) {
         try {
-            LoginController.server.socket.close();
+            server.socket.close();
 
             Stage primaryStage = Main.primaryStage;
             Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
