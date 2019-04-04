@@ -8,9 +8,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public  static Stage primaryStage;
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+    public void start(Stage stage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        primaryStage = stage;
         primaryStage.setTitle("Image Identifier");
         primaryStage.setScene(new Scene(root, 676, 460));
         primaryStage.setResizable(false);

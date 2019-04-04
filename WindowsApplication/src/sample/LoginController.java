@@ -4,9 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -15,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class LoginController implements Initializable {
     @FXML
     private PasswordField loginPass;
 
@@ -29,6 +32,7 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+    static Stage primaryStage;
 
     public void login(ActionEvent event){
         String user = loginUser.getText();
@@ -50,8 +54,13 @@ public class Controller implements Initializable {
             }
             if(found){
                 System.out.println("User Found");
-                pane = FXMLLoader.load(getClass().getResource("main.fxml"));
-                pane.getChildren().setAll(pane);
+
+                primaryStage = Main.primaryStage;
+                Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+                primaryStage.setScene(new Scene(root, 676, 460));
+                primaryStage.setResizable(false);
+                primaryStage.show();
+
             }
             else
                 System.out.println("User Not Found");
