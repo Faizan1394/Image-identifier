@@ -3,6 +3,7 @@
 from keras.models import load_model
 import cv2
 import numpy as np
+import sys
 
 imageTargetSize = 64
 
@@ -13,7 +14,7 @@ labels = ['daisy','dandelion','roses','sunflowers','tulips']
 model = load_model('Model/trainedModel.h5')
 
 
-img = cv2.imread('fakeRose.jpg')
+img = cv2.imread(sys.argv[1])
 imgResized = cv2.resize(img,(imageTargetSize,imageTargetSize))
 imgResized = np.reshape(imgResized,[1,imageTargetSize,imageTargetSize,3])
 testResult = model.predict(imgResized)
