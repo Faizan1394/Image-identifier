@@ -54,6 +54,7 @@ public class LoginController implements Initializable {
             }
             if(found){
                 System.out.println("User Found");
+                Server server = new Server();
 
                 //Set Scene
                 Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
