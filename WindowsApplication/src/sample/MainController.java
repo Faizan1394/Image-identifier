@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
@@ -9,10 +10,16 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 
+
 public class MainController implements Initializable {
+    @FXML
+    public ImageView img;
+
     private Server server;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -20,7 +27,9 @@ public class MainController implements Initializable {
     }
 
     public void close(ActionEvent e) {
-       System.exit(0);
+//       System.exit(0);
+
+        img.setImage(new Image("readImage.png"));
     }
 
     public void logout(ActionEvent e) {
