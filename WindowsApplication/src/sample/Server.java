@@ -3,12 +3,13 @@ package sample;
 import java.io.*;
 import java.net.*;
 
-public class Server {
+public class Server extends Thread{
 	protected ServerSocket serverSocket;
 	public Socket socket;
 	protected static int PORT = 8080;
 
-	public Server(){
+
+	public void run(){
         try{
 
             serverSocket = new ServerSocket(PORT);
@@ -22,7 +23,8 @@ public class Server {
                 ServerThread thread = new ServerThread(socket);
                 thread.start();
             }
-        }
-        catch(IOException e){ System.err.println("IOEXception while creating server connection"); }
+        }catch(IOException e){ System.err.println("IOEXception while creating server connection"); }
     }
+
+
 }

@@ -32,8 +32,15 @@ public class ServerThread extends Thread{
 			}
 			BufferedImage image = ImageIO.read(new ByteArrayInputStream(data));
 			ImageIO.write(image, "png", new File("src\\resources\\readImage.png"));
+			socket.close();
 
-			Process p = Runtime.getRuntime().exec("python test.py resources/readImage.png");
+			Process p = Runtime.getRuntime().exec("python ../CNN/CNNTest.py testing.png");
+//			Process p = Runtime.getRuntime().exec("python CNNTest.py");
+
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			String ret = in.readLine();
+			System.out.println("testing " + ret);
 		}
 		catch (Exception e) { e.printStackTrace(); }
 	}
