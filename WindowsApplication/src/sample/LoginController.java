@@ -63,7 +63,6 @@ public class LoginController implements Initializable {
                 primaryStage.setScene(new Scene(root, 676, 460));
                 primaryStage.setResizable(false);
                 primaryStage.show();
-                new Server().start();
             }
             else
                 System.out.println("User Not Found");

@@ -21,26 +21,31 @@ import javax.imageio.ImageIO;
 
 
 public class MainController implements Initializable {
+
     @FXML
-    public ImageView img;
-
-    private Server server;
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        server = new Server();
-    }
-
-    public void close(ActionEvent e) {
-//       System.exit(0);
+    public volatile ImageView img;
 
 
+    public void updateImage(){
         File file = new File("src\\resources\\readImage.png");
         try {
 
             BufferedImage bf = ImageIO.read(file);
-            Image image = SwingFXUtils.toFXImage(bf,null);
-            img.setImage(image);
+            Image image0 = SwingFXUtils.toFXImage(bf,null);
+            img.setImage(image0);
         }catch (Exception ex) {ex.printStackTrace();}
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        new Server(this).start();
+    }
+
+    public void close(ActionEvent e) {
+       System.exit(0);
+
+
+
     }
 
     public void logout(ActionEvent e) {
