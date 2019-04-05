@@ -6,13 +6,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -25,17 +28,17 @@ public class MainController implements Initializable {
     @FXML
     public volatile ImageView img;
 
+    @FXML
+    public volatile Label name;
 
-    public void updateImage(){
-        File file = new File("src\\resources\\readImage.png");
-        try {
+    @FXML
+    public volatile Label price;
 
-            BufferedImage bf = ImageIO.read(file);
-            Image image0 = SwingFXUtils.toFXImage(bf,null);
-            img.setImage(image0);
-        }catch (Exception ex) {ex.printStackTrace();}
-    }
+    @FXML
+    public volatile Label barcode;
 
+    @FXML
+    public volatile Label quantity;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         new Server(this).start();
@@ -58,4 +61,28 @@ public class MainController implements Initializable {
 
         } catch (IOException exception) {System.err.println("Unhandled IOException\n" + exception);}
     }
+
+    public void updateImage(){
+        File file = new File("src\\resources\\readImage.png");
+        try {
+
+            BufferedImage bf = ImageIO.read(file);
+            Image image0 = SwingFXUtils.toFXImage(bf,null);
+            img.setImage(image0);
+        }catch (Exception ex) {ex.printStackTrace();}
+    }
+
+
+    public void updateInfo(String itemName) {
+        try {
+            BufferedReader bf = new BufferedReader(new FileReader(itemName+".txt"));
+
+            name.setText(bf.readLine());
+            price.setText(bf.readLine());
+            barcode.setText(bf.readLine());
+            quantity.setText(bf.readLine());
+
+        } catch (IOException e) {System.err.println("Unhandled IOException\n" + e);}
+    }
+
 }

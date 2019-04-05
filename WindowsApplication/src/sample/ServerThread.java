@@ -43,13 +43,16 @@ public class ServerThread extends Thread{
 
 			BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-			System.out.println(in.readLine());
+			String prediction = in.readLine();
+			System.out.println(prediction);
 //			String ret;
 //			while((ret = in.readLine()) != null){
 //				System.out.println(ret);
 //			}
 
 			mc.updateImage();
+//			mc.updateInfo(prediction);
+			mc.updateInfo("roses");
 
 		}
 		catch (Exception e) { e.printStackTrace(); }
