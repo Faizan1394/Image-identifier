@@ -95,7 +95,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        String ip = "10.160.63.3";
+        String ip = "10.190.24.78";
         path= data.getData();
 
         if(requestCode == 0 && resultCode==RESULT_OK){

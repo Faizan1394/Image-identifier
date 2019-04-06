@@ -22,7 +22,7 @@
          <children>
             <HBox layoutX="16.0" layoutY="17.0" prefHeight="364.0" prefWidth="571.0">
                <children>
-                  <ImageView id="imageView" fx:id="display" blendMode="HARD_LIGHT" fitHeight="276.0" fitWidth="291.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="imageView" fx:id="img" blendMode="HARD_LIGHT" fitHeight="276.0" fitWidth="291.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../readImage.png" />
                      </image>

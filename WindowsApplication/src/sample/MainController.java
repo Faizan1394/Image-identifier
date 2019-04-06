@@ -26,19 +26,19 @@ import javax.imageio.ImageIO;
 public class MainController implements Initializable {
 
     @FXML
-    public volatile ImageView img;
+    public ImageView img;
 
     @FXML
-    public volatile Label name;
+    public Label name;
 
     @FXML
-    public volatile Label price;
+    public Label price;
 
     @FXML
-    public volatile Label barcode;
+    public Label barcode;
 
     @FXML
-    public volatile Label quantity;
+    public Label quantity;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         new Server(this).start();
@@ -75,12 +75,24 @@ public class MainController implements Initializable {
 
     public void updateInfo(String itemName) {
         try {
-            BufferedReader bf = new BufferedReader(new FileReader(itemName+".txt"));
+            BufferedReader bf = new BufferedReader(new FileReader("src\\resources\\"+itemName+".txt"));
 
-            name.setText(bf.readLine());
-            price.setText(bf.readLine());
-            barcode.setText(bf.readLine());
-            quantity.setText(bf.readLine());
+            String temp = bf.readLine();
+            System.out.println(temp);
+            temp = bf.readLine();
+            System.out.println(temp);
+            temp = bf.readLine();
+            System.out.println(temp);
+            temp = bf.readLine();
+            System.out.println(temp);
+
+            bf.close();
+//            name.setText("testing");
+
+//            name.setText(temp);
+//            price.setText(bf.readLine());
+//            barcode.setText(bf.readLine());
+//            quantity.setText(bf.readLine());
 
         } catch (IOException e) {System.err.println("Unhandled IOException\n" + e);}
     }

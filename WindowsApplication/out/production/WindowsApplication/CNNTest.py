@@ -20,7 +20,7 @@ testResult = model.predict(imgResized)
 
 for i in range(len(labels)):
 	if testResult[0][i]==1:
-		print('Image Predictions: ',labels[i])
+		print(labels[i])
 		# img = cv2.resize(img, (500, 500))
 		# cv2.imshow('Image', img)
 		# cv2.waitKey(0)
